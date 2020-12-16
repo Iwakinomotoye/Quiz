@@ -1,5 +1,7 @@
 # Quiz
 
+This project has not been completed yet
+
 ## Project setup
 ```
 npm install
