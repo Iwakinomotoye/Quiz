@@ -95,6 +95,7 @@ export default {
     methods: {
         selectCategory(category) {
             this.$store.commit("setCategory", category);
+            this.$store.dispatch("getQuestions", {toye: 10});
             this.$router.push("/questions");
         }
     },

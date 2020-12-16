@@ -12,6 +12,7 @@ const vuexLocalStorage = new VuexPersist({
 
 const quizApp = {
     category: {},
+    questions: [],
 }
 
 export const store = new Vuex.Store({
@@ -23,22 +24,29 @@ export const store = new Vuex.Store({
         setCategory (state, category) {
             state.category = category;
         },
+        setQuestions (state, questions) {
+            state.questions = questions;
+        }
     },
     actions: {
-        getQuestions() {
+        getQuestions({commit}, payload) {
+            console.log(payload);
+            console.log(commit);
             // axios.get(`https://opentdb.com/api.php?amount=20&category=${this.categoryValue}&type=multiple`)
-        // .then(response => {
-        //     this.questions = response.data.results;
+            // .then(response => {
+            //     this.state.questions = response.data.results;
 
-        //     this.shuffleArray(this.questions);
+            //     console.log(this.state.questions)
 
-        //     this.displayQuestion();
-        // })
-        // //make sure you use this errored and loading
-        // .catch(() => {
-        //     this.errored = true;
-        // })
-        // .finally(() =>this.loading = false)
+            //     // this.shuffleArray(this.questions);
+
+            //     // this.displayQuestion();
+            // })
+            // //make sure you use this errored and loading
+            // .catch(() => {
+            //     this.errored = true;
+            // })
+            // .finally(() =>this.loading = false)
         }
     },
     getters: {
