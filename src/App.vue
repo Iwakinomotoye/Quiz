@@ -134,15 +134,45 @@ export default {
 }
 @font-face {
     font-family: "Recoleta";
-    src: url("./assets/font/Recoleta-Regular.ttf");
+    src: url("./assets/font/Recoleta-Regular.ttf") format('truetype'),
+        url("./assets/font/Recoleta-Regular.woff2") format('woff2');
 }
 @font-face {
     font-family: "Recoleta-Bold";
-    src: url("./assets/font/Recoleta-Bold.ttf");
+    src: url("./assets/font/Recoleta-Bold.ttf") format('truetype'),
+        url("./assets/font/Recoleta-Bold.woff2") format('woff2');
 }
 @font-face {
     font-family: "Recoleta-SemiBold";
-    src: url("./assets/font/Recoleta-SemiBold.ttf");
+    src: url("./assets/font/Recoleta-SemiBold.ttf") format('truetype'),
+        url("./assets/font/Recoleta-SemiBold.woff2") format('woff2');
+}
+/* icons styles */
+@font-face {
+    font-family: 'icomoon';
+    src:  url('./assets/icomoon/fonts/icomoon.eot?onuepi');
+    src:  url('./assets/icomoon/fonts/icomoon.eot?onuepi#iefix') format('embedded-opentype'),
+        url('./assets/icomoon/fonts/icomoon.ttf?onuepi') format('truetype'),
+        url('./assets/icomoon/fonts/icomoon.woff?onuepi') format('woff'),
+        url('./assets/icomoon/fonts/icomoon.svg?onuepi#icomoon') format('svg');
+    font-weight: normal;
+    font-style: normal;
+    font-display: block;
+}
+
+[class^="icon-"], [class*=" icon-"] {
+    /* use !important to prevent issues with browser extensions that change fonts */
+    font-family: 'icomoon' !important;
+    speak: never;
+    font-style: normal;
+    font-weight: normal;
+    font-variant: normal;
+    text-transform: none;
+    line-height: 1;
+
+    /* Better Font Rendering =========== */
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
 }
 /* .app {
     width: 100%;

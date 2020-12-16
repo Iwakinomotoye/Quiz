@@ -48,19 +48,19 @@ export default {
                     value: "27"
                 },
                 {
-                    url: "history",
+                    url: "history.jpg",
                     name: "History",
                     icon: "icon-scroll",
                     value: "23"
                 },
                 {
-                    url: "celebrities",
+                    url: "celebrities.jpg",
                     name: "Celebrities",
                     icon: "icon-star",
                     value: "26"
                 },
                 {
-                    url: "mathematics",
+                    url: "mathematics.jpg",
                     name: "Mathematics",
                     icon: "icon-abacus",
                     value: "19"
@@ -72,19 +72,19 @@ export default {
                     value: "18"
                 },
                 {
-                    url: "music",
+                    url: "music.jpg",
                     name: "Music",
                     icon: "icon-microphone",
                     value: "12"
                 },
                 {
-                    url: "film",
+                    url: "film.jpg",
                     name: "Film",
                     icon: "icon-camera",
                     value: "11"
                 },
                 {
-                    url: "sports",
+                    url: "sports.jpg",
                     name: "Sports",
                     icon: "icon-football",
                     value: "21"
@@ -229,32 +229,6 @@ export default {
     }
 
     /* icon styles */
-    @font-face {
-        font-family: 'icomoon';
-        src:  url('../assets/icomoon/icomoon.eot?r5b6gm');
-        src:  url('../assets/icomoon/icomoon.eot?r5b6gm#iefix') format('embedded-opentype'),
-            url('../assets/icomoon/icomoon.ttf?r5b6gm') format('truetype'),
-            url('../assets/icomoon/icomoon.woff?r5b6gm') format('woff'),
-            url('../assets/icomoon/icomoon.svg?r5b6gm#icomoon') format('svg');
-        font-weight: normal;
-        font-style: normal;
-        font-display: block;
-    }
-
-    [class^="icon-"], [class*=" icon-"] {
-        /* use !important to prevent issues with browser extensions that change fonts */
-        font-family: 'icomoon' !important;
-        font-style: normal;
-        font-weight: normal;
-        font-variant: normal;
-        text-transform: none;
-        line-height: 1;
-
-        /* Better Font Rendering =========== */
-        -webkit-font-smoothing: antialiased;
-        -moz-osx-font-smoothing: grayscale;
-    }
-
     .icon-abacus:before {
         content: "\e900";
     }
