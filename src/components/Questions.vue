@@ -17,6 +17,12 @@
                         <!-- for loop of span active with js -->
                         <div class="progress">
                             <span></span><span class="current"></span>
+                            <span></span><span></span><span></span>
+                            <span></span><span></span><span></span>
+                            <span></span><span></span><span></span>
+                            <span></span><span></span><span></span>
+                            <span></span><span></span><span></span>
+                            <span></span><span></span><span></span>
                         </div>
                     </div>
                     <div class="main-question">
@@ -130,8 +136,10 @@ export default {
         margin: 0 auto;
         display: block;
         margin-top: 22px;
-        width: 220px;
-        height: 189px;
+        /* width: 220px; */
+        width: 84.615%;
+        /* height: 189px; */
+        height: 67.986%;
         object-fit: cover;
     }
     .category-text {
@@ -156,7 +164,7 @@ export default {
         justify-content: space-between;
         margin-bottom: 75px;
     }
-    .progress > span {
+    .progress span {
         display: inline-block;
         border-radius: 50%;
         width: 14px;
@@ -164,14 +172,14 @@ export default {
         background: #3F5266;
         margin-right: 10px;
     }
-    .progress > span:last-of-type {
+    .progress span:last-of-type {
         margin-right: 0;
     }
-    .progress > .current {
+    .progress .current {
         background: #EE8572;
     }
     .main-question {
-        border-bottom: 1px solid rgba(255, 255, 255, 0.51);
+        border-bottom: 1px solid rgba(240, 240, 240, 0.2);
     }
     .question {
         font-family: "Recoleta-SemiBold";
@@ -255,7 +263,6 @@ export default {
         border: 0;
         width: 181px;
         height: 60px;
-        background: rgba(53, 73, 94, 0.95);
         border-radius: 10px;
         background: rgba(225, 225, 225, 0.1);
         font-size: 16px;
@@ -281,5 +288,55 @@ export default {
     }
     .back-button:focus .icon-left-arrow:before, .next-button:focus .icon-arrow:before {
         color: #EE8572;
+    }
+    @media (max-width: 1199.98px) {
+        .category-description {
+            height: 248px;
+        }
+        .question {
+            font-size: 25px;
+        }
+    }
+    @media (max-width: 991.98px) {
+        .category-description {
+            height: 220px;
+        }
+        .category-description > img {
+            margin-top: 15px;
+        }
+        .question-position {
+            flex-direction: column-reverse;
+        }
+        .question {
+            font-size: 22px;
+        }
+    }
+    @media (max-width: 767.98px) {
+        .inner-content {
+            flex-direction: column;
+        }
+        .category-description {
+            height: 60px;
+            width: 260px;
+            margin-bottom: 30px;
+        }
+        .category-description > img {
+            display: none;
+        }
+        .question {
+            font-size: 20px;
+        }
+    }
+    @media (max-width: 575.98px) {
+        .progress span {
+            width: 9.68px;
+            height: 9.68px;
+        }
+        .question {
+            font-size: 18px;
+        }
+        .back-button, .next-button {
+            width: 120px;
+        }
     }
 </style>

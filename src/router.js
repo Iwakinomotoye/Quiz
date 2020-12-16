@@ -22,6 +22,10 @@ export default new VueRouter({
             path: '/questions',
             component: () => import('./components/Questions.vue')
         },
+        {
+            path: '/result',
+            component: () => import('./components/Result.vue')
+        },
         // {path: '*', component: () => import('./views/lostPage.vue')}
     ]
 })
