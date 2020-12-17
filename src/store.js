@@ -12,6 +12,7 @@ const vuexLocalStorage = new VuexPersist({
 const quizApp = {
     category: {},
     questions: [],
+    score: 0,
 }
 
 export const store = new Vuex.Store({
@@ -25,16 +26,22 @@ export const store = new Vuex.Store({
         },
         setQuestions (state, questions) {
             state.questions = questions;
+        },
+        setScore (state, score) {
+            state.score = score;
         }
     },
     actions: {
     },
     getters: {
-        getCategoryName(state) {
+        getCategory(state) {
             return state.category;
         },
         getQuestions(state) {
             return state.questions;
+        },
+        getScore(state) {
+            return state.score;
         }
     }
 })

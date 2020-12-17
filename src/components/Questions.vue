@@ -30,7 +30,7 @@
                                     <input type="radio" name="option" @click="checkAnswer(option)"/>
                                     <span></span>
                                 </div>
-                                <div>{{option}}</div>
+                                <div v-html="option"></div>
                             </div>
                         </div>
                     </div>
@@ -85,6 +85,7 @@ export default {
                 // this.startTimer();
             } else {
                 this.$router.push("/result");
+                this.$store.commit("setScore", this.numberOfCorrect);
             }
         },
         checkAnswer(option) {
@@ -103,11 +104,14 @@ export default {
             this.currentQuestionNo++;
             this.displayQuestion();
             this.alreadyClicked = false;
-            document.querySelector("input[type='radio']:checked").checked = false;
+            let checkedRadio = document.querySelector("input[type='radio']:checked");
+            if(checkedRadio) {
+                checkedRadio.checked = false;
+            }
         },
     },
     created() {
-        const category = this.$store.getters.getCategoryName;
+        const category = this.$store.getters.getCategory;
         this.categoryName = category.name;
         this.categoryImage = category.url;
         if (!category) {

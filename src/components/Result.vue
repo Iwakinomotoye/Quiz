@@ -11,16 +11,16 @@
                 <div class="circle">
                     <div class="inner-circle">
                         <p>You scored</p>
-                        <p class="score-count">5/20</p>
-                        <p class="percentage">25%</p>
+                        <p class="score-count">{{score}}/{{totalQuestions}}</p>
+                        <p class="percentage">{{percentage}}%</p>
                     </div>
                 </div>
                 <div class="result-message">
-                    <p>Failure today can mean success tomorrow.</p>
-                    <!-- <p>Well done! You have done great.</p> -->
+                    <p v-if="percentage < 50">Failure today can mean success tomorrow.</p>
+                    <p v-else>Well done! You have done great.</p>
                 </div>
                 <div class="page-handler">
-                    <button class="start-again">Take Quiz Again</button>
+                    <button class="start-again" @click="restart()">Take Quiz Again</button>
                     <button class="share">Share on Twitter</button>
                 </div>
             </div>
@@ -30,32 +30,41 @@
 
 <script>
 import Header from "./Header";
+import getQuestions from "../services/getQuestions";
+
 export default {
     name: "Questions",
     components: {
         Header
     },
+    computed: {
+        percentage() {
+            let percentage = (this.score/this.totalQuestions) * 100;
+            return percentage = parseInt(percentage);
+        }
+    },
     data() {
         return {
             categoryName: null,
             categoryImage: null,
+            score: 0,
+            totalQuestions: 0
         }
     },
     methods: {
-        // restart() {
-        //     this.categorySelected = false;
-        //     this.numberOfCorrect= 0;
-        //     this.id = 0;
-        // },
+        restart() {
+            this.$store.commit("setScore", 0);
+            this.$store.commit("setQuestions", []);
+            let category = this.$store.getters.getCategory;
+            getQuestions(category.value)
+            .then(() => {
+                this.$router.push("/questions");
+            });
+        },
     },
-    created() {
-        this.$store.dispatch("getQuestions");
-        const category = this.$store.getters.getCategoryName;
-        this.categoryName = category.name;
-        this.categoryImage = category.url;
-        if (!category) {
-            this.$router.push("/categories");
-        }
+    mounted() {
+        this.score = this.$store.getters.getScore;
+        this.totalQuestions = this.$store.getters.getQuestions.length;
     }
 }
 </script>
@@ -224,7 +233,7 @@ export default {
         .circle {
             width: 280px;
             height: 280px;
-            border: 40px solid #EE8572;
+            /* border: 40px solid #EE8572; */
         }
     }
 </style>
