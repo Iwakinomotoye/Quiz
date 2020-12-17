@@ -27,7 +27,8 @@
                             <div v-for="(option, index) in options" :key="index"
                             v-bind:class="{correctAnswer: option===correctAnswer, wrongAnswer: option===selected}">
                                 <div class="custom-radio">
-                                    <input type="radio" name="option" @click="checkAnswer(option)"/>
+                                    <input type="radio" name="option" @click="checkAnswer(option)" 
+                                    v-bind:disabled="correctAnswer.length > 0"/>
                                     <span></span>
                                 </div>
                                 <div v-html="option"></div>
