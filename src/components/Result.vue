@@ -40,7 +40,8 @@ export default {
     computed: {
         percentage() {
             let percentage = (this.score/this.totalQuestions) * 100;
-            return percentage = parseInt(percentage);
+            percentage = parseInt(percentage);
+            return isNaN(percentage) ? 0 : percentage;
         }
     },
     data() {
