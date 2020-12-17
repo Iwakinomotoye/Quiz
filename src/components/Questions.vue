@@ -103,6 +103,7 @@ export default {
             this.currentQuestionNo++;
             this.displayQuestion();
             this.alreadyClicked = false;
+            document.querySelector("input[type='radio']:checked").checked = false;
         },
     },
     created() {
