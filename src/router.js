@@ -1,6 +1,5 @@
 import Vue from 'vue';
 import VueRouter from 'vue-router';
-import Result from "./components/Result";
 
 Vue.use(VueRouter);
 
@@ -25,7 +24,7 @@ export default new VueRouter({
         },
         {
             path: '/result',
-            component: Result
+            component: () => import('./components/Result.vue')
         },
         // {path: '*', component: () => import('./views/lostPage.vue')}
     ]

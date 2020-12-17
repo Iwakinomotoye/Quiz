@@ -21,7 +21,7 @@
                 </div>
                 <div class="page-handler">
                     <button class="start-again" @click="restart()">Take Quiz Again</button>
-                    <button class="share">Share on Twitter</button>
+                    <!-- <button class="share">Share on Twitter</button> -->
                 </div>
             </div>
         </div>

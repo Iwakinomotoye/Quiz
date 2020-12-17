@@ -232,7 +232,7 @@ export default {
         min-width: 181px;
         width: fit-content;
         padding: 10px 23px 10px 30px;
-        height: 60px;
+        min-height: 60px;
         background: rgba(225, 225, 225, 0.1);
         border-radius: 10px;
         color: #fff;
