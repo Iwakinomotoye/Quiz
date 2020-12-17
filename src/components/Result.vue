@@ -41,6 +41,13 @@ export default {
             categoryImage: null,
         }
     },
+    methods: {
+        // restart() {
+        //     this.categorySelected = false;
+        //     this.numberOfCorrect= 0;
+        //     this.id = 0;
+        // },
+    },
     created() {
         this.$store.dispatch("getQuestions");
         const category = this.$store.getters.getCategoryName;

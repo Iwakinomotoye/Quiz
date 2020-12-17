@@ -11,7 +11,7 @@
 </template>
 
 <script>
-import axios from 'axios';
+// import axios from 'axios';
 // import Header from './components/Header';
 // import Main from './components/Main';
 // import Category from './components/Category';
@@ -49,71 +49,60 @@ export default {
                 }
             }, 1000);
         },
-        restart() {
-            this.categorySelected = false;
-            this.numberOfCorrect= 0;
-            this.id = 0;
-        },
-        setCategory(category) {
-            this.categorySelected = true;
-            axios.get(`https://opentdb.com/api.php?amount=20&category=${category}&type=multiple`)
-            .then(response => {
-                this.questions = response.data.results;
-                this.totalQuestions = this.questions.length;
-                // console.log(this.questions);
+        // restart() {
+        //     this.categorySelected = false;
+        //     this.numberOfCorrect= 0;
+        //     this.id = 0;
+        // },
+        // setCategory(category) {
+        //     this.categorySelected = true;
+        //     axios.get(`https://opentdb.com/api.php?amount=20&category=${category}&type=multiple`)
+        //     .then(response => {
+        //         this.questions = response.data.results;
+        //         this.totalQuestions = this.questions.length;
+        //         this.shuffleArray(this.questions);
 
-                //shuffleArray of questions
-                this.shuffleArray(this.questions);
-
-                this.displayQuestion();
-            })
-            .catch(error => {
-                console.log(error);
-                this.errored = true;
-            })
-            .finally(() =>this.loading = false)
-        },
-        shuffleArray(arr) {
-            for(let i = 0; i < arr.length; i++) {
-                let randomIndex = Math.floor(Math.random() * (arr.length));
-                let elementInRandomIndex = arr[randomIndex];
-                arr[randomIndex] = arr[i];
-                arr[i] = elementInRandomIndex;
-            }
-            return arr;
-        },
-        displayQuestion() {
-            if(this.id < this.totalQuestions) {
-                // display the first question of this array
-                this.question = this.questions[this.id].question;
-                // options for the first question of this array
-                let answers = [];
-                answers.push(...this.questions[this.id].incorrect_answers);
-                answers.push(this.questions[this.id].correct_answer);
-                this.shuffleArray(answers);
-                this.options = answers;
-                this.correctAnswer = "";
-                this.countdown = 20;
-                this.startTimer();
-            }
-        },
-        checkAnswer(option) {
-            if(!this.alreadyClicked) {
-                this.correctAnswer = this.questions[this.id].correct_answer;
-                if(this.correctAnswer == option) {
-                    this.selected = "";
-                    this.numberOfCorrect++;
-                } else {
-                    this.selected = option;
-                }
-                this.alreadyClicked = true;
-            }
-        },
-        nextQuestion() {
-            this.id++;
-            this.displayQuestion();
-            this.alreadyClicked = false;
-        }
+        //         this.displayQuestion();
+        //     })
+        //     .catch(error => {
+        //         console.log(error);
+        //         this.errored = true;
+        //     })
+        //     .finally(() =>this.loading = false)
+        // },
+        
+        // displayQuestion() {
+        //     if(this.id < this.totalQuestions) {
+        //         // display the first question of this array
+        //         this.question = this.questions[this.id].question;
+        //         // options for the first question of this array
+        //         let answers = [];
+        //         answers.push(...this.questions[this.id].incorrect_answers);
+        //         answers.push(this.questions[this.id].correct_answer);
+        //         this.shuffleArray(answers);
+        //         this.options = answers;
+        //         this.correctAnswer = "";
+        //         this.countdown = 20;
+        //         this.startTimer();
+        //     }
+        // },
+        // checkAnswer(option) {
+        //     if(!this.alreadyClicked) {
+        //         this.correctAnswer = this.questions[this.id].correct_answer;
+        //         if(this.correctAnswer == option) {
+        //             this.selected = "";
+        //             this.numberOfCorrect++;
+        //         } else {
+        //             this.selected = option;
+        //         }
+        //         this.alreadyClicked = true;
+        //     }
+        // },
+        // nextQuestion() {
+        //     this.id++;
+        //     this.displayQuestion();
+        //     this.alreadyClicked = false;
+        // }
     },
     created: function() {
 

@@ -1,21 +1,4 @@
 <template>
-    <!-- <div class="select-categories">
-        <div>Select the categories of quiz you want to play</div>
-        <select v-on:change="category=$event.target.value">
-            come herer
-            <option value="">Select Categories</option>
-            <option value="27">Animals</option>
-            <option value="26">Celebrities</option>
-            <option value="18">Computer</option>
-            <option value="11">Film</option>
-            <option value="23">History</option>
-            <option value="19">Mathematics</option>
-            <option value="12">Music</option>
-            <option value="21">Sport</option>
-            <option value="28">Vehicles</option>
-        </select>
-        <button v-on:click="$emit('setCategory', category)">Submit</button>
-    </div> -->
     <div class="categories">
         <div class="page-content">
             <div class="header-section">
@@ -35,6 +18,7 @@
     </div>
 </template>
 <script>
+import getQuestions from "../services/getQuestions";
 export default {
     name: 'Category',
     data() {
@@ -95,8 +79,10 @@ export default {
     methods: {
         selectCategory(category) {
             this.$store.commit("setCategory", category);
-            this.$store.dispatch("getQuestions", {toye: 10});
-            this.$router.push("/questions");
+            getQuestions(category.value)
+            .then(() => {
+                this.$router.push("/questions");
+            })
         }
     },
 }

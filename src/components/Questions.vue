@@ -13,54 +13,30 @@
                 </div>
                 <div class="question-section">
                     <div class="question-position">
-                        <div>Question 5 of 20</div>
-                        <!-- for loop of span active with js -->
+                        <div>Question {{currentQuestionNo}} of {{totalQuestions}}</div>
+                        
                         <div class="progress">
-                            <span></span><span class="current"></span>
-                            <span></span><span></span><span></span>
-                            <span></span><span></span><span></span>
-                            <span></span><span></span><span></span>
-                            <span></span><span></span><span></span>
-                            <span></span><span></span><span></span>
-                            <span></span><span></span><span></span>
+                            <span v-for="count in totalQuestions" :key="count"
+                            v-bind:class="{current: count==currentQuestionNo}"></span>
                         </div>
                     </div>
                     <div class="main-question">
-                        <div class="question">What five letter word is the motto of the IBM Computer company?</div>
+                        <div class="question" v-html="question"></div>
                         <div class="options">
-                            <div class="correct-answer">
+                            <!-- prevent input from changing after answer -->
+                            <div v-for="(option, index) in options" :key="index"
+                            v-bind:class="{correctAnswer: option===correctAnswer, wrongAnswer: option===selected}">
                                 <div class="custom-radio">
-                                    <input type="radio" name="option"/>
+                                    <input type="radio" name="option" @click="checkAnswer(option)"/>
                                     <span></span>
                                 </div>
-                                <div>Login</div>
-                            </div>
-                            <div class="wrong-answer">
-                                <div class="custom-radio">
-                                    <input type="radio" name="option"/>
-                                    <span></span>
-                                </div>
-                                <div>Pixel</div>
-                            </div>
-                            <div>
-                                <div class="custom-radio">
-                                    <input type="radio" name="option"/>
-                                    <span></span>
-                                </div>
-                                <div>Think</div>
-                            </div>
-                            <div>
-                                <div class="custom-radio">
-                                    <input type="radio" name="option"/>
-                                    <span></span>
-                                </div>
-                                <div>Click</div>
+                                <div>{{option}}</div>
                             </div>
                         </div>
                     </div>
                     <div class="page-handler">
-                        <button class="back-button"><span class="icon-left-arrow"></span>Back</button>
-                        <button class="next-button">Next<span class="icon-arrow"></span></button>
+                        <!-- <button class="back-button"><span class="icon-left-arrow"></span>Back</button> -->
+                        <button class="next-button" @click="nextQuestion()">Next<span class="icon-arrow"></span></button>
                     </div>
                 </div>
             </div>
@@ -70,6 +46,8 @@
 
 <script>
 import Header from "./Header";
+import shuffleArray from "../helper/shuffleArray";
+
 export default {
     name: "Questions",
     components: {
@@ -79,16 +57,66 @@ export default {
         return {
             categoryName: null,
             categoryImage: null,
+            questions: [],
+            question: "",
+            options: [],
+            totalQuestions: 0,
+            currentQuestionNo: 1,
+            correctAnswer: "",
+            alreadyClicked: false,
+            numberOfCorrect: 0,
+            selected: "",
         }
     },
+    methods: {
+        displayQuestion() {
+            if(this.currentQuestionNo < this.totalQuestions) {
+                // display the first question of this array
+                this.question = this.questions[this.currentQuestionNo].question;
+                // options for the first question of this array
+                let answers = [];
+                answers.push(...this.questions[this.currentQuestionNo].incorrect_answers);
+                answers.push(this.questions[this.currentQuestionNo].correct_answer);
+                answers = shuffleArray(answers);
+
+                this.options = answers;
+                this.correctAnswer = "";
+                // this.countdown = 20;
+                // this.startTimer();
+            } else {
+                this.$router.push("/result");
+            }
+        },
+        checkAnswer(option) {
+            if(!this.alreadyClicked) {
+                this.correctAnswer = this.questions[this.currentQuestionNo].correct_answer;
+                if(this.correctAnswer == option) {
+                    this.selected = "";
+                    this.numberOfCorrect++;
+                } else {
+                    this.selected = option;
+                }
+                this.alreadyClicked = true;
+            }
+        },
+        nextQuestion() {
+            this.currentQuestionNo++;
+            this.displayQuestion();
+            this.alreadyClicked = false;
+        },
+    },
     created() {
-        this.$store.dispatch("getQuestions");
         const category = this.$store.getters.getCategoryName;
         this.categoryName = category.name;
         this.categoryImage = category.url;
         if (!category) {
             this.$router.push("/categories");
         }
+    },
+    mounted() {
+        this.questions = this.$store.getters.getQuestions;
+        this.totalQuestions = this.questions.length;
+        this.displayQuestion();
     }
 }
 </script>
@@ -127,6 +155,9 @@ export default {
         padding-top: 13px;
         margin-right: 55px;
     }
+    .question-section {
+        min-width: calc(100% - 315px);
+    }
     .category-description > div {
         width: fit-content;
         margin: 0 auto;
@@ -163,6 +194,9 @@ export default {
         display: flex;
         justify-content: space-between;
         margin-bottom: 75px;
+    }
+    .question-position > div:first-of-type {
+        margin-right: 15px;
     }
     .progress span {
         display: inline-block;
@@ -202,9 +236,9 @@ export default {
         font-weight: 500;
         display: flex;
         align-items: center;
+        position: relative;
     }
     .custom-radio {
-        position: relative;
         background: rgba(53, 73, 94, 0.95);
         border: 1px solid rgba(240, 240, 240, 0.3);
         box-sizing: border-box;
@@ -220,8 +254,8 @@ export default {
         position: absolute;
         top: 0;
         left: 0;
-        width: 25px;
-        height: 25px;
+        width: 100%;
+        height: 100%;
         opacity: 0;
         z-index: 1;
     }
@@ -235,29 +269,29 @@ export default {
     .custom-radio input[type='radio']:checked + span {
         background: #EE8572;
     }
-    .wrong-answer {
+    .wrongAnswer {
         border: 1px solid #F03434;
     }
-    .correct-answer {
+    .correctAnswer {
         border: 1px solid #35C801;
     }
-    .wrong-answer::after, .correct-answer::after {
+    .wrongAnswer::after, .correctAnswer::after {
         display: inline-block;
-        
         height: 32px;
     }
-    .wrong-answer::after {
+    .wrongAnswer::after {
         content: url('../assets/images/wrong.svg');
         margin-left: 60px;
     }
-    .correct-answer::after {
+    .correctAnswer::after {
         content: url('../assets/images/correct.svg');
         margin-left: 50px;
     }
     .page-handler {
         margin-top: 30px;
         display: flex;
-        justify-content: space-between;
+        /* justify-content: space-between; */
+        justify-content: flex-end;
     }
     .back-button, .next-button {
         border: 0;
@@ -317,7 +351,6 @@ export default {
         }
         .category-description {
             height: 60px;
-            width: 260px;
             margin-bottom: 30px;
         }
         .category-description > img {
