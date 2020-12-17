@@ -415,6 +415,7 @@ export default {
             display: block;
             position: relative;
             min-width: 100vw;
+            min-height: 100vh;
         }
         .section-one-content {
             flex-direction: column;
