@@ -3,7 +3,7 @@ import VueRouter from 'vue-router';
 
 Vue.use(VueRouter);
 
-export default new VueRouter({
+const Routes =  new VueRouter({
     mode: 'history',
     routes: [
         {
@@ -27,5 +27,14 @@ export default new VueRouter({
             component: () => import('./components/Result.vue')
         },
         // {path: '*', component: () => import('./views/lostPage.vue')}
-    ]
+    ],
+    scrollBehavior (to, from, savedPosition) {
+        if(savedPosition) {
+            return savedPosition;
+        } else {
+            return {x: 0, y: 0};
+        }
+    }
 })
+
+export default Routes;
