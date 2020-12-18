@@ -162,7 +162,7 @@ export default {
         margin-right: 55px;
     }
     .question-section {
-        min-width: calc(100% - 315px);
+        width: 85%;
     }
     .category-description > div {
         width: fit-content;
@@ -249,8 +249,7 @@ export default {
         border: 1px solid rgba(240, 240, 240, 0.3);
         box-sizing: border-box;
         border-radius: 10px;
-        width: 25px;
-        height: 25px;
+        padding: 4px;
         display: flex;
         justify-content: center;
         align-items: center;
