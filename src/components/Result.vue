@@ -9,6 +9,9 @@
                     <span class="category-name">{{categoryName}}</span>
                 </div>
                 <div class="circle">
+                    <div class="inner"></div>
+                    <div class="inner-two"></div>
+                    <div class="inner-three"></div>
                     <div class="inner-circle">
                         <p>You scored</p>
                         <p class="score-count">{{score}}/{{totalQuestions}}</p>
@@ -66,6 +69,30 @@ export default {
     mounted() {
         this.score = this.$store.getters.getScore;
         this.totalQuestions = this.$store.getters.getQuestions.length;
+        let degree, degreeTwo = 0;
+
+        if(this.percentage > 50 ) {
+            degree = -225 + 180;
+            degreeTwo = -45 + ((this.percentage / 100) * 180);
+        } else {
+            degree = -225 + (this.percentage/100) * 180;
+        }
+
+        let inner = document.querySelector('.inner');
+        let innerThree = document.querySelector('.inner-three')
+        
+        setTimeout(() => {
+            inner.style.transform = `rotate(${degree}deg)`;
+        }, 1000);
+        if(this.percentage > 50) {
+            setTimeout(() => {
+                innerThree.style.display = "inline-block";
+                innerThree.classList.add("trans");
+            }, 1900);
+            setTimeout(() => {
+                innerThree.style.transform = `rotate(${degreeTwo}deg)`;
+            }, 1950);
+        }
     }
 }
 </script>
@@ -124,28 +151,58 @@ export default {
         margin-left: 19px;
     }
     .circle {
+        position: relative;
         margin: 35px 0 15px 0;
         width: 317px;
         height: 317px;
-        padding: 50px;
         background: #EE8572;
         border-radius: 50%;
-        /* border: 50px solid #EE8572;
-        border-width: 50px;
-        border-style: solid;
-        border-color: #EE8572 #EE8572 #EE8572 transparent; */
-        box-shadow: 0px 0px 4px rgba(0, 0, 0, 0.5);
+    }
+    .inner-circle {
+        position: absolute;
+        border-radius: 50%;
+    }
+    .inner, .inner-two, .inner-three {
+        position: absolute;
+        width: 100%;
+        height: 100%;
+        border-radius: 50%;
+        left: 0;
+        top: 0;
+    }
+    .inner {
+        transition: all 1s;
+        background-image: linear-gradient(225deg, transparent 50%, #3F5266 50%);
+        transform: rotate(-225deg);
+        z-index: 0;
+    }
+    .inner-two {
+        z-index: 1;
+        background-image: linear-gradient(180deg, transparent 50%, #3F5266 50%);
+    }
+    .inner-three {
+        background-image: linear-gradient(45deg, transparent 50%, #EE8572 50%);
+        transform: rotate(-45deg);
+        z-index: 2;
+        display: none;
+    }
+    .trans {
+        transition: all 1s;
     }
     .inner-circle {
         background: #47596e;
         border-radius: 50%;
         box-shadow: 0 0 4px rgba(0, 0, 0, 0.5);
-        width: 100%;
-        height: 100%;
         display: flex;
         flex-direction: column;
         align-items: center;
         justify-content: center;
+        width: 70%;
+        height: 70%;
+        z-index: 3;
+        transform-origin: center;
+        left: 15%;
+        top: 15%;
     }
     .circle p:first-of-type {
         font-size: 16px;
