@@ -71,23 +71,18 @@ export default {
     },
     methods: {
         displayQuestion() {
-            if(this.currentQuestionNo < this.totalQuestions) {
-                // display the first question of this array
-                this.question = this.questions[this.currentQuestionNo].question;
-                // options for the first question of this array
-                let answers = [];
-                answers.push(...this.questions[this.currentQuestionNo].incorrect_answers);
-                answers.push(this.questions[this.currentQuestionNo].correct_answer);
-                answers = shuffleArray(answers);
+            // display the first question of this array
+            this.question = this.questions[this.currentQuestionNo].question;
+            // options for the first question of this array
+            let answers = [];
+            answers.push(...this.questions[this.currentQuestionNo].incorrect_answers);
+            answers.push(this.questions[this.currentQuestionNo].correct_answer);
+            answers = shuffleArray(answers);
 
-                this.options = answers;
-                this.correctAnswer = "";
-                // this.countdown = 20;
-                // this.startTimer();
-            } else {
-                this.$router.push("/result");
-                this.$store.commit("setScore", this.numberOfCorrect);
-            }
+            this.options = answers;
+            this.correctAnswer = "";
+            // this.countdown = 20;
+            // this.startTimer();
         },
         checkAnswer(option) {
             if(!this.alreadyClicked) {
@@ -102,12 +97,18 @@ export default {
             }
         },
         nextQuestion() {
-            this.currentQuestionNo++;
-            this.displayQuestion();
-            this.alreadyClicked = false;
-            let checkedRadio = document.querySelector("input[type='radio']:checked");
-            if(checkedRadio) {
-                checkedRadio.checked = false;
+            if(this.currentQuestionNo < (this.totalQuestions - 1)) {
+                this.currentQuestionNo++;
+                this.displayQuestion();
+                this.alreadyClicked = false;
+                let checkedRadio = document.querySelector("input[type='radio']:checked");
+                if(checkedRadio) {
+                    checkedRadio.checked = false;
+                }
+            }
+             else {
+                this.$router.push("/result");
+                this.$store.commit("setScore", this.numberOfCorrect);
             }
         },
     },

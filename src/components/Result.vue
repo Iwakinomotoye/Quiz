@@ -116,8 +116,10 @@ export default {
             }, 2550);
         }
         
-        this.percentCounter(this.percentage);
-        this.scoreCounter(this.score);
+        if(this.percentage > 0) {
+            this.percentCounter(this.percentage);
+            this.scoreCounter(this.score);
+        }
     }
 }
 </script>
