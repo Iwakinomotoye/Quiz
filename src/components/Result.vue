@@ -14,8 +14,8 @@
                     <div class="inner-three"></div>
                     <div class="inner-circle">
                         <p>You scored</p>
-                        <p class="score-count">{{score}}/{{totalQuestions}}</p>
-                        <p class="percentage">{{percentage}}%</p>
+                        <p class="score-count">{{theScore}}/{{totalQuestions}}</p>
+                        <p class="percentage">{{thePercentage}}%</p>
                     </div>
                 </div>
                 <div class="result-message">
@@ -52,7 +52,9 @@ export default {
             categoryName: null,
             categoryImage: null,
             score: 0,
-            totalQuestions: 0
+            theScore: 0,
+            totalQuestions: 0,
+            thePercentage: 0
         }
     },
     methods: {
@@ -65,6 +67,26 @@ export default {
                 this.$router.push("/questions");
             });
         },
+        percentCounter(value) {
+            let initial = 0;
+            let counting = setInterval(() => {
+                initial++;
+                this.thePercentage = initial;
+                if(initial === value) {
+                    clearInterval(counting)
+                }
+            }, 50)
+        },
+        scoreCounter(value) {
+            let initial = 0;
+            let counting = setInterval(() => {
+                initial++;
+                this.theScore = initial;
+                if(initial === value) {
+                    clearInterval(counting)
+                }
+            }, 250)
+        }
     },
     mounted() {
         this.score = this.$store.getters.getScore;
@@ -73,9 +95,9 @@ export default {
 
         if(this.percentage > 50 ) {
             degree = -225 + 180;
-            degreeTwo = -45 + ((this.percentage / 100) * 180);
+            degreeTwo = -45 + (((this.percentage - 50) * 2 / 100) * 180);
         } else {
-            degree = -225 + (this.percentage/100) * 180;
+            degree = -225 + (this.percentage * 2 / 100) * 180;
         }
 
         let inner = document.querySelector('.inner');
@@ -83,16 +105,19 @@ export default {
         
         setTimeout(() => {
             inner.style.transform = `rotate(${degree}deg)`;
-        }, 1000);
+        }, 100);
         if(this.percentage > 50) {
             setTimeout(() => {
                 innerThree.style.display = "inline-block";
                 innerThree.classList.add("trans");
-            }, 1900);
+            }, 2500);
             setTimeout(() => {
                 innerThree.style.transform = `rotate(${degreeTwo}deg)`;
-            }, 1950);
+            }, 2550);
         }
+        
+        this.percentCounter(this.percentage);
+        this.scoreCounter(this.score);
     }
 }
 </script>
@@ -171,7 +196,7 @@ export default {
         top: 0;
     }
     .inner {
-        transition: all 1s;
+        transition: all 2.8s;
         background-image: linear-gradient(225deg, transparent 50%, #3F5266 50%);
         transform: rotate(-225deg);
         z-index: 0;
@@ -187,7 +212,7 @@ export default {
         display: none;
     }
     .trans {
-        transition: all 1s;
+        transition: all 2.5s;
     }
     .inner-circle {
         background: #47596e;
