@@ -13,11 +13,11 @@
                 </div>
                 <div class="question-section">
                     <div class="question-position">
-                        <div>Question {{currentQuestionNo}} of {{totalQuestions}}</div>
+                        <div>Question {{currentQuestionNo + 1}} of {{totalQuestions}}</div>
                         
                         <div class="progress">
                             <span v-for="count in totalQuestions" :key="count"
-                            v-bind:class="{current: count==currentQuestionNo}"></span>
+                            v-bind:class="{current: count==currentQuestionNo+1}"></span>
                         </div>
                     </div>
                     <div class="main-question">
@@ -62,7 +62,7 @@ export default {
             question: "",
             options: [],
             totalQuestions: 0,
-            currentQuestionNo: 1,
+            currentQuestionNo: 0,
             correctAnswer: "",
             alreadyClicked: false,
             numberOfCorrect: 0,
