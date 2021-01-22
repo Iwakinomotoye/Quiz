@@ -199,7 +199,8 @@ export default {
         color: #FFFFFF;
         display: flex;
         justify-content: space-between;
-        margin-bottom: 75px;
+        /* margin-bottom: 75px; */
+        margin-bottom: 30px;
     }
     .question-position > div:first-of-type {
         margin-right: 15px;
@@ -363,6 +364,9 @@ export default {
         }
         .question {
             font-size: 20px;
+        }
+        .question-section {
+            width: 100%;
         }
     }
     @media (max-width: 575.98px) {
