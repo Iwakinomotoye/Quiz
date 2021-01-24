@@ -42,9 +42,10 @@ export default {
     },
     computed: {
         percentage() {
-            let percentage = (this.score/this.totalQuestions) * 100;
-            percentage = parseInt(percentage);
-            return isNaN(percentage) ? 0 : percentage;
+            // let percentage = (this.score/this.totalQuestions) * 100;
+            // percentage = parseInt(percentage);
+            // return isNaN(percentage) ? 0 : percentage;
+            return 80;
         }
     },
     data() {
@@ -90,6 +91,7 @@ export default {
     },
     mounted() {
         this.score = this.$store.getters.getScore;
+        this.score = 18;
         this.totalQuestions = this.$store.getters.getQuestions.length;
         let degree, degreeTwo = 0;
 
@@ -198,7 +200,7 @@ export default {
         top: 0;
     }
     .inner {
-        transition: all 2.8s;
+        transition: all 2.6s;
         background-image: linear-gradient(225deg, transparent 50%, #3F5266 50%);
         transform: rotate(-225deg);
         z-index: 0;

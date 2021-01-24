@@ -78,6 +78,40 @@ export default {
             loading: null,
         }
     },
+    methods: {
+        shuffle(first, second, third, fourth) {
+            let container = document.querySelector(`.image-container:nth-of-type(${first})`);
+            let containerTwo = document.querySelector(`.image-container:nth-of-type(${second})`);
+            let containerThree = document.querySelector(`.image-container:nth-of-type(${third})`);
+            let containerFour = document.querySelector(`.image-container:nth-of-type(${fourth})`);
+
+            if (window.innerWidth > 500) {
+                container.style.transform = 'translateY(-380px) translateX(105px) translateZ(-300px)';
+                containerTwo.style.transform = 'translateY(0px) translateX(0px) translateZ(0px)';
+                containerThree.style.transform = 'translateY(-20px) translateX(35px) translateZ(-100px)';
+                containerFour.style.transform = 'translateY(-40px) translateX(70px) translateZ(-200px)';
+                setTimeout(() => {
+                    container.style.zIndex = 1;
+                    containerTwo.style.zIndex = 4;
+                    containerThree.style.zIndex = 3;
+                    containerFour.style.zIndex = 2;
+                    container.style.transform = 'translateY(-60px) translateX(105px) translateZ(-300px)';
+                }, 500);
+            } else {
+                container.style.transform = 'translateY(-250px) translateX(0px) translateZ(-300px)';
+                containerTwo.style.transform = 'translateY(0px) translateX(0px) translateZ(0px)';
+                containerThree.style.transform = 'translateY(-20px) translateX(0px) translateZ(-100px)';
+                containerFour.style.transform = 'translateY(-40px) translateX(0px) translateZ(-200px)';
+                setTimeout(() => {
+                    container.style.zIndex = 1;
+                    containerTwo.style.zIndex = 4;
+                    containerThree.style.zIndex = 3;
+                    containerFour.style.zIndex = 2;
+                    container.style.transform = 'translateY(-60px) translateX(0px) translateZ(-300px)';
+                }, 500);
+            } 
+        }
+    },
     mounted() {
         if (this.$router.currentRoute.path === "/home") {
             this.loading = false;
@@ -85,6 +119,25 @@ export default {
             this.loading = true;
             setTimeout(()=>this.loading=false,5500);
         }
+
+        let count = 0;
+        setInterval(()=> {
+            count++;
+            if(count === 1) {
+                this.shuffle(1, 2, 3, 4);
+            }
+            if(count === 2) {
+                this.shuffle(2, 3, 4, 1);
+            }
+            if(count === 3) {
+                this.shuffle(3, 4, 1, 2);
+            }
+            if(count === 4) {
+                this.shuffle(4, 1, 2, 3);
+                count = 0;
+            }
+        }, 2000);
+
     },
     created() {
         window.localStorage.removeItem("quiz-app");
@@ -180,11 +233,10 @@ export default {
     }
     .slash-background::before {
         content: "";
-        background: #35495E;
+        background-image: linear-gradient(130deg, #35495E 78%, transparent 22%);
         width: 150px;
-        /* border: 1px solid red; */
         margin-top: -20px;
-        margin-right: -22px;
+        margin-right: -41px;
     }
     @keyframes moveRight {
         from {
@@ -229,6 +281,7 @@ export default {
         display: flex;
         justify-content: space-between;
         align-items: center;
+        perspective: 1000px;
     }
     .section-one-content > * {
         margin-bottom: -120px;
@@ -249,24 +302,23 @@ export default {
     }
     .image-container {
         position: absolute;
+        transition: transform 0.5s;
     }
     .image-container:nth-of-type(1) {
-        z-index: 5;
-    }
-    .image-container:nth-of-type(2) {
-        top: -20px;
-        transform: scale(0.934);
+        transform: translateY(0px) translateX(0px) translateZ(0px);
         z-index: 4;
     }
-    .image-container:nth-of-type(3) {
-        top: -40px;
-        transform: scale(0.868);
+    .image-container:nth-of-type(2) {
+        transform: translateY(-20px) translateX(35px) translateZ(-100px);
         z-index: 3;
     }
-    .image-container:nth-of-type(4) {
-        top: -60px;
-        transform: scale(0.802);
+    .image-container:nth-of-type(3) {
+        transform: translateY(-40px) translateX(70px) translateZ(-200px);
         z-index: 2;
+    }
+    .image-container:nth-of-type(4) {
+        transform: translateY(-60px) translateX(105px) translateZ(-300px);
+        z-index: 1;
     }
     .image-content img {
         width: 454px;
@@ -345,15 +397,6 @@ export default {
             width: 409px;
             height: 278px;
         }
-        .image-container:nth-of-type(2) {
-            top: -15px;
-        }
-        .image-container:nth-of-type(3) {
-            top: -30px;
-        }
-        .image-container:nth-of-type(4) {
-            top: -45px;
-        }
         .image-content img {
             width: 409px;
             height: 278px;
@@ -387,15 +430,6 @@ export default {
             width: 320px;
             height: 218px;
         }
-        .image-container:nth-of-type(2) {
-            top: -13px;
-        }
-        .image-container:nth-of-type(3) {
-            top: -26px;
-        }
-        .image-container:nth-of-type(4) {
-            top: -39px;
-        }
         .image-content img {
             width: 320px;
             height: 218px;
@@ -405,8 +439,9 @@ export default {
         }
     }
     @media (max-width: 767.98px) {
-        .landing, .section-one {
+        .landing, .section-one, .section-one-content {
             max-height: unset;
+            height: fit-content;
         }
         .background {
             display: none;
@@ -418,7 +453,7 @@ export default {
             min-height: 100vh;
         }
         .section-one-content {
-            flex-direction: column;
+            flex-direction: column-reverse;
         }
         .section-one-content > * {
             margin-bottom: 0;
@@ -426,7 +461,7 @@ export default {
         .text-content {
             text-align: center;
             width: 100%;
-            margin-top: 14.5vh;
+            margin-top: 8vh;
         }
         .text-content > * {
             width: 100%;
@@ -446,9 +481,22 @@ export default {
             margin-right: auto;
             margin-left: auto;
             margin-bottom: auto;
+            margin-top: 220px;
             width: 324px;
             height: 179px;
             max-width: 86.667vw;
+        }
+        .image-container:nth-of-type(1) {
+            transform: translateY(0px) translateX(0px) translateZ(0px);
+        }
+        .image-container:nth-of-type(2) {
+            transform: translateY(-20px) translateX(0px) translateZ(-100px);
+        }
+        .image-container:nth-of-type(3) {
+            transform: translateY(-40px) translateX(0px) translateZ(-200px);
+        }
+        .image-container:nth-of-type(4) {
+            transform: translateY(-60px) translateX(0px) translateZ(-300px);
         }
         .image-content img {
             width: 324px;
@@ -457,9 +505,7 @@ export default {
             border: 3px solid #fff;
         }
         .take-quiz {
-            margin: 0 auto;
-            margin-top: 5.755vh;
-            margin-bottom: 12.194vh;
+            margin: auto;
         }
     }
 </style>
