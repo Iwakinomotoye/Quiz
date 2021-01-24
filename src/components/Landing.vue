@@ -111,34 +111,38 @@ export default {
                     container.style.transform = 'translateY(-60px) translateX(0px) translateZ(-300px)';
                 }, 500);
             } 
+        },
+        callInterval() {
+            let count = 0;
+            setInterval(()=> {
+                count++;
+                if(count === 1) {
+                    this.shuffle(1, 2, 3, 4);
+                }
+                if(count === 2) {
+                    this.shuffle(2, 3, 4, 1);
+                }
+                if(count === 3) {
+                    this.shuffle(3, 4, 1, 2);
+                }
+                if(count === 4) {
+                    this.shuffle(4, 1, 2, 3);
+                    count = 0;
+                }
+            }, 5000);
         }
     },
     mounted() {
         if (this.$router.currentRoute.path === "/home") {
             this.loading = false;
+            this.callInterval();
         } else {
             this.loading = true;
-            setTimeout(()=>this.loading=false,5500);
+            setTimeout(()=>  {
+                this.loading=false;
+                this.callInterval();
+            },5500);
         }
-
-        let count = 0;
-        setInterval(()=> {
-            count++;
-            if(count === 1) {
-                this.shuffle(1, 2, 3, 4);
-            }
-            if(count === 2) {
-                this.shuffle(2, 3, 4, 1);
-            }
-            if(count === 3) {
-                this.shuffle(3, 4, 1, 2);
-            }
-            if(count === 4) {
-                this.shuffle(4, 1, 2, 3);
-                count = 0;
-            }
-        }, 5000);
-
     },
     created() {
         window.localStorage.removeItem("quiz-app");
