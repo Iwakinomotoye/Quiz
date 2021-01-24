@@ -39,24 +39,25 @@
                             </div>
                         </div>
                         <div class="image-container">
-                            <img src="@/assets/images/swim.jpg" alt="horses" />
+                            <img src="@/assets/images/computers.jpg" alt="horses" />
                             <div class="image-caption">
                                 <p>Did you know ?</p>
-                                <p>Domestic horses have a lifespan of around 25 years.</p>
+                                <p>Mac OS was the first operating system ever released.</p>
                             </div>
                         </div>
                         <div class="image-container">
-                            <img src="@/assets/images/testing-three.jpg" alt="horses" />
+                            <img src="@/assets/images/stadium.jpg" alt="horses" />
                             <div class="image-caption">
                                 <p>Did you know ?</p>
-                                <p>Domestic horses have a lifespan of around 25 years.</p>
+                                <p>The 2022 World Cup would be hosted by Qatar.</p>
                             </div>
                         </div>
                         <div class="image-container">
-                            <img src="@/assets/images/testing-four.jpg" alt="horses" />
+                            <img src="@/assets/images/canada.jpg" alt="horses" />
                             <div class="image-caption">
                                 <p>Did you know ?</p>
-                                <p>Domestic horses have a lifespan of around 25 years.</p>
+                                <p>Canada was founded in 1867.</p>
+                                <!-- ceylon is the historical name of sri lanka -->
                             </div>
                         </div>
                     </div>
@@ -136,7 +137,7 @@ export default {
                 this.shuffle(4, 1, 2, 3);
                 count = 0;
             }
-        }, 2000);
+        }, 5000);
 
     },
     created() {
