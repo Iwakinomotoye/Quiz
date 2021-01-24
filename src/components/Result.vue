@@ -42,10 +42,9 @@ export default {
     },
     computed: {
         percentage() {
-            // let percentage = (this.score/this.totalQuestions) * 100;
-            // percentage = parseInt(percentage);
-            // return isNaN(percentage) ? 0 : percentage;
-            return 80;
+            let percentage = (this.score/this.totalQuestions) * 100;
+            percentage = parseInt(percentage);
+            return isNaN(percentage) ? 0 : percentage;
         }
     },
     data() {
@@ -91,7 +90,6 @@ export default {
     },
     mounted() {
         this.score = this.$store.getters.getScore;
-        this.score = 18;
         this.totalQuestions = this.$store.getters.getQuestions.length;
         let degree, degreeTwo = 0;
 
