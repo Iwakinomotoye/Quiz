@@ -112,8 +112,8 @@ export default {
                 }, 500);
             } 
         },
-        callInterval() {
-            let count = 0;
+        callInterval(startingPoint) {
+            let count = startingPoint;
             setInterval(()=> {
                 count++;
                 if(count === 1) {
@@ -129,18 +129,24 @@ export default {
                     this.shuffle(4, 1, 2, 3);
                     count = 0;
                 }
-            }, 5000);
+            }, 4000);
         }
     },
     mounted() {
         if (this.$router.currentRoute.path === "/home") {
             this.loading = false;
-            this.callInterval();
+            setTimeout(() => {
+                this.shuffle(1, 2, 3, 4);
+            }, 1000)
+            this.callInterval(1);
         } else {
             this.loading = true;
             setTimeout(()=>  {
                 this.loading=false;
-                this.callInterval();
+                setTimeout(() => {
+                    this.shuffle(1, 2, 3, 4);
+                }, 1000)
+                this.callInterval(1);
             },5500);
         }
     },
