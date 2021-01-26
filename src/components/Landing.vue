@@ -77,6 +77,7 @@ export default {
     data() {
         return {
             loading: null,
+            pageEvent: null,
         }
     },
     methods: {
@@ -114,7 +115,7 @@ export default {
         },
         callInterval(startingPoint) {
             let count = startingPoint;
-            setInterval(()=> {
+            this.pageEvent = setInterval(()=> {
                 count++;
                 if(count === 1) {
                     this.shuffle(1, 2, 3, 4);
@@ -152,6 +153,9 @@ export default {
     },
     created() {
         window.localStorage.removeItem("quiz-app");
+    },
+    beforeDestroy() {
+        clearInterval(this.pageEvent);
     }
 }
 </script>
