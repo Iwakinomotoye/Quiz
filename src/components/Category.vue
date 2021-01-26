@@ -73,16 +73,21 @@ export default {
                     icon: "icon-football",
                     value: "21"
                 },
-            ]
+            ],
+            changeRouteOnce: 0,
         }
     },
     methods: {
         selectCategory(category) {
             this.$store.commit("setCategory", category);
-            getQuestions(category.value)
-            .then(() => {
-                this.$router.push("/questions");
-            })
+            this.changeRouteOnce++;
+            // I used this to control the route from being called twice to prevent console error
+            if (this.changeRouteOnce === 1) {
+                getQuestions(category.value)
+                .then(() => {
+                    this.$router.push("/questions");
+                })
+            }
         }
     },
 }
